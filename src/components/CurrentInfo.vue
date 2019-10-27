@@ -1,5 +1,5 @@
 <template lang="html">
-<div>
+<div id='top'>
 <div>
   <h1>Current Location</h1>
   <img :src="info.flag" alt="flag">
@@ -30,15 +30,27 @@ export default {
 </script>
 
 <style lang="css" scoped>
-  div {
+  #top {
     display: flex;
     flex: center;
   }
+
+  div {
+    margin: 40px;
+    position: center;
+  }
+
   div img{
     height: 80px;
     width: 160px;
+    position: center;
   }
   h1 {
-    display: inline-block;
+    display: block;
+    text-align: center;
+  }
+  li {
+    list-style-type: none;
+    text-align: center;
   }
 </style>

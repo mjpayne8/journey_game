@@ -32,9 +32,13 @@ export default {
 div {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 div img{
   height: 80px;
   width: 160px;
+}
+li {
+  list-style: none;
 }
 </style>
