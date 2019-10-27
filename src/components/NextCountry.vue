@@ -1,15 +1,30 @@
 <template lang="html">
   <div>
-      <li v-for="country in countryList">
-        <img :src="country.flag" alt="flag">
-        <p>{{country.name}}</p>
-      </li>
+      <ul v-for="country in countryList">
+        <li @click="handleClick(country)">
+          <img :src="country.flag" alt="flag">
+          <p>{{country.name}}</p>
+        </li>
+      </ul>
   </div>
 </template>
 
 <script>
+import {eventBus} from '../main.js'
+
 export default {
-  props: ["countryList"]
+  data(){
+    return {
+      selectedCountry: {}
+    }
+  },
+  props: ["countryList"],
+  methods: {
+    handleClick(country){
+      this.selectedCountry = country;
+      eventBus.$emit("selected-country", this.selectedCountry)
+      }
+  }
 }
 </script>
 

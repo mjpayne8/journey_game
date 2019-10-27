@@ -6,7 +6,7 @@
       <button type="button" @click='initialiseCountries()'>Start</button>
     </div>
     <div v-if='Object.keys(currentCountry).length'>
-      <current-info :info = "currentCountry" ></current-info>
+      <current-info :info = "currentCountry" :destination = "endCountry"></current-info>
     </div>
     <div v-if='Object.keys(currentCountry).length'>
         <p>Where to next?</p>
@@ -18,6 +18,7 @@
 <script>
 import CurrentInfo from './components/CurrentInfo.vue'
 import NextCountry from './components/NextCountry.vue'
+import {eventBus} from './main.js'
 
 export default {
   name: 'app',
@@ -32,6 +33,9 @@ export default {
     fetch('https://restcountries.eu/rest/v2/all')
     .then(response => response.json())
     .then(data => this.allCountries = data);
+
+    eventBus.$on("selected-country", (selectedCountry) => {
+      this.currentCountry = selectedCountry});
   },
   components: {
     "current-info": CurrentInfo,
