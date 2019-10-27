@@ -44,7 +44,7 @@ export default {
       this.endCountry = this.allCountries[indexOfEnd];
     },
     findCountries: function(countriesToFind){
-      return this.allCountries.filter(country => countriesToFind.includes(country.alpha3code))
+      return this.allCountries.filter(country => countriesToFind.includes(country.alpha3Code))
     },
     getSteps: function(countryA,countryB){
       let hasFoundCountry = false;
@@ -55,22 +55,22 @@ export default {
         steps += 1;
         // console.log(steps);
         travelCountries.forEach(country => countriesCanTravel.concat(country.alpha3code));
-        hasFoundCountry = travelCountries.includes(countryB.alpha3code);
+        hasFoundCountry = travelCountries.includes(countryB.alpha3Code);
         }
       return steps;
     },
-    initialiseCountries: function(){
+     initialiseCountries: function(){
       const indexOfStart = Math.floor(this.allCountries.length*Math.random());
       this.currentCountry = this.allCountries[indexOfStart];
       let stepCountry = [this.currentCountry];
       let possibleCountries =[];
       let steps = 0;
-      while(steps<20){
+      while(steps<3){
         steps += 1;
-        console.log(steps);
-        console.log(stepCountry);
-        if (!stepCountry[0]){
-          console.log('in if1');
+        // console.log(steps);
+        // console.log(stepCountry);
+       if (!stepCountry[0]){
+          // console.log('in if1');
           const indexOfStart = Math.floor(this.allCountries.length*Math.random());
           this.currentCountry = this.allCountries[indexOfStart];
           stepCountry = [this.currentCountry];
@@ -82,7 +82,13 @@ export default {
         }
         this.endCountry = stepCountry[0];
       }
-    }
+    // initialiseCountries: function(){
+    //     const chosenCountries = this.findCountries(['FRA','POL'])
+    //     console.log(chosenCountries);
+    //     this.currentCountry = chosenCountries[0];
+    //     this.endCountry = chosenCountries[1]
+    //}
+  }
 }
 </script>
 
