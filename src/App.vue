@@ -5,12 +5,17 @@
       <p>The aim is to get from your starting point to your end point passing through neighbouring countries</p>
       <button type="button" @click='initialiseCountries()'>Start</button>
     </div>
-    <div v-if='Object.keys(currentCountry).length'>
-      <current-info :info = "currentCountry" :destination = "endCountry"></current-info>
-    </div>
-    <div v-if='Object.keys(currentCountry).length'>
+    <div v-if='currentCountry!==endCountry'>
+      <div v-if='Object.keys(currentCountry).length'>
+        <current-info :info = "currentCountry" :destination = "endCountry"></current-info>
+      </div>
+      <div v-if='Object.keys(currentCountry).length'>
         <p>Where to next?</p>
         <next-country :countryList = "nextCountries"></next-country>
+      </div>
+    </div>
+    <div v-if='currentCountry==endCountry'>
+      <p>Well Done! You made it!</p>
     </div>
   </div>
 </template>
@@ -68,7 +73,7 @@ export default {
       let steps = 0;
       let travelCountries = [countryA];
       let countriesCanTravel = [];
-      while (!hasFoundCountry){
+      while (!hasFoundCountry && steps<20){
         steps += 1;
         travelCountries.forEach(country => countriesCanTravel = countriesCanTravel.concat(country.borders))
         hasFoundCountry = countriesCanTravel.includes(countryB.alpha3Code);
@@ -76,6 +81,18 @@ export default {
         }
       return steps;
     },
+      initialiseCountries: function(){
+        const indexOfStart = Math.floor(this.allCountries.length*Math.random());
+        this.currentCountry = this.allCountries[indexOfStart];
+        const indexOfEnd = Math.floor(this.allCountries.length*Math.random());
+        this.endCountry = this.allCountries[indexOfEnd];
+        while (this.stepsNumber>=20){
+          const indexOfStart = Math.floor(this.allCountries.length*Math.random());
+          this.currentCountry = this.allCountries[indexOfStart];
+          const indexOfEnd = Math.floor(this.allCountries.length*Math.random());
+          this.endCountry = this.allCountries[indexOfEnd];
+        }
+      }
      // initialiseCountries: function(){
      //  const indexOfStart = Math.floor(this.allCountries.length*Math.random());
      //  this.currentCountry = this.allCountries[indexOfStart];
@@ -99,11 +116,11 @@ export default {
      //    }
      //    this.endCountry = stepCountry[0];
      //  }
-    initialiseCountries: function(){
-        const chosenCountries = this.findCountries(['FRA','POL'])
-        this.currentCountry = chosenCountries[0];
-        this.endCountry = chosenCountries[1]
-    }
+    // initialiseCountries: function(){
+    //     const chosenCountries = this.findCountries(['FRA','POL'])
+    //     this.currentCountry = chosenCountries[0];
+    //     this.endCountry = chosenCountries[1]
+    // }
   }
 }
 </script>
