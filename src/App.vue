@@ -7,10 +7,10 @@
     </div>
     <div v-if='Object.keys(currentCountry).length'>
       <current-info :info = "currentCountry" ></current-info>
-    <div>
+    </div>
     <div v-if='Object.keys(currentCountry).length'>
         <p>Where to next?</p>
-        <next-country :country-list = "findCountries(currentCountry.borders)"></next-country>
+        <next-country :countryList = "nextCountries"></next-country>
     </div>
   </div>
 </template>
@@ -25,7 +25,7 @@ export default {
     return {
       allCountries: [],
       endCountry: {},
-      currentCountry: {},
+      currentCountry: {}
     }
   },
   mounted(){
@@ -41,6 +41,11 @@ export default {
     stepsNumber: function(){
       if(this.allCountries.includes(this.endCountry)){
       return this.getSteps(this.currentCountry,this.endCountry)
+      }
+    },
+    nextCountries: function(){
+      if(this.allCountries.includes(this.currentCountry)){
+      return this.findCountries(this.currentCountry.borders)
       }
     }
   },
